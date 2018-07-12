@@ -56,7 +56,13 @@ class FireStoreApiClient {
     {
         return array_key_exists($key, self::$config) ? self::$config[$key] : null;
     }
+    public function getCollection($collectionName){
+        if ($response = $this->get('documents/' .FireStoreHelper::normalizeCollection($collectionName) )) {
+            return $response;
+        }
 
+        throw new \Exception('Error while parsing response from FireStore', FireStoreErrorCodes::UNABLE_TO_RESOLVE_REQUEST);
+    }
     public function getDocument($collectionName, $documentId=null)
     {
         $documentPath = 'documents/' . FireStoreHelper::normalizeCollection($collectionName . (null === $documentId ? "/$documentId" : ''));
