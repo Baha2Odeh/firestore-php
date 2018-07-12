@@ -65,7 +65,7 @@ class FireStoreApiClient {
     }
     public function getDocument($collectionName, $documentId=null)
     {
-        $documentPath = 'documents/' . FireStoreHelper::normalizeCollection($collectionName . (null === $documentId ? "/$documentId" : ''));
+        $documentPath = 'documents/' . FireStoreHelper::normalizeCollection($collectionName . (null === $documentId ? '' : "/$documentId"));
         if ($response = $this->get($documentPath)) {
             $object = FireStoreHelper::decode($response);
 
